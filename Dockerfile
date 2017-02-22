@@ -23,4 +23,4 @@ WORKDIR $SYNCTHING_ROOT
 CMD ["syncthing", \
        "-home=/opt/syncthing/config"]
 
-EXPOSE 8384, 22000, 21027/udp
+EXPOSE 8384 22000 21027/udp
