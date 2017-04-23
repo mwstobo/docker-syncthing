@@ -1,6 +1,6 @@
 FROM alpine:3.5
 
-ARG version=v0.14.23
+ARG version=v0.14.26
 ARG buildhost=https://github.com/syncthing/syncthing/releases/download/${version}
 ARG tar_filename=syncthing-linux-amd64-${version}.tar.gz
 
