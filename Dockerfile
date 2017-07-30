@@ -1,6 +1,6 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
-ARG version=v0.14.26
+ARG version=v0.14.33
 ARG buildhost=https://github.com/syncthing/syncthing/releases/download/${version}
 ARG tar_filename=syncthing-linux-amd64-${version}.tar.gz
 
@@ -11,13 +11,16 @@ ENV PATH=$PATH:$SYNCTHING_BIN
 VOLUME ["/opt/syncthing/config", "/opt/syncthing/data"]
 
 RUN apk update \
- && apk add ca-certificates \
+ && apk add --no-cache \
+            --virtual build \
+            ca-certificates \
             wget \
  && update-ca-certificates \
  && wget ${buildhost}/${tar_filename} \
  && mkdir -p $SYNCTHING_ROOT $SYNCTHING_BIN \
  && tar xvf "${tar_filename}" -C $SYNCTHING_BIN --strip 1 \
- && rm "${tar_filename}"
+ && rm "${tar_filename}" \
+ && apk del build
 
 WORKDIR $SYNCTHING_ROOT
 CMD ["syncthing", \
